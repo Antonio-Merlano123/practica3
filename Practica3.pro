@@ -6,7 +6,9 @@ CONFIG -= app_bundle qt
 
 SOURCES += \
     main.cpp \
-    punto1_rle.cpp
+    punto1_rle.cpp \
+    punto2_rle.cpp
 
 HEADERS += \
-    punto1_rle.h
+    punto1_rle.h \
+    punto2_rle.h
