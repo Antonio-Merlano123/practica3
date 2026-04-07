@@ -3,13 +3,14 @@
 
 #include "punto1_rle.h"
 #include "punto2_rle.h"
+#include "punto3_crypto.h"
 
 using namespace std;
 
 int main() {
     try {
         int opcion;
-        cout << "Opcion (1)RLE (2)LZ78: ";
+        cout << "Opcion (1)RLE (2)LZ78 (3)Crypto: ";
         cin >> opcion;
         cin.ignore(10000, '\n');
 
@@ -52,6 +53,40 @@ int main() {
 
             liberarCodigosLZ78(codigos);
             liberarTextoLZ78(recuperado);
+        } else if (opcion == 3) {
+            cout << "Texto: ";
+            char texto[1000];
+            cin.getline(texto, 1000);
+
+            int clave_num;
+            int rot;
+            cout << "Clave (0-255): ";
+            cin >> clave_num;
+            cout << "Rotacion (1-7): ";
+            cin >> rot;
+
+            if (clave_num < 0 || clave_num > 255) throw "Clave invalida";
+            if (rot < 1 || rot > 7) throw "Rotacion invalida";
+
+            int n = contarLen(texto);
+            unsigned char clave = (unsigned char)clave_num;
+
+            char* encriptado = 0;
+            char* recuperado = 0;
+            encriptarPunto3(texto, n, clave, rot, encriptado);
+            desencriptarPunto3(encriptado, n, clave, rot, recuperado);
+
+            cout << "Encriptado (bytes): ";
+            for (int i = 0; i < n; i++) {
+                cout << (int)(unsigned char)encriptado[i] << " ";
+            }
+            cout << "\nRecuperado: " << recuperado << "\n";
+
+            if (sonIguales(texto, recuperado)) cout << "OK\n";
+            else cout << "Error\n";
+
+            liberarPunto3(encriptado);
+            liberarPunto3(recuperado);
         } else {
             cout << "\nOpcion no valida\n";
         }
