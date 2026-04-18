@@ -30,10 +30,13 @@ void ejecutarPunto4() {
         return;
     }
 
-    // leo el texto base desde archivo
-    ifstream fin("input.txt");
+    // Archivo de entrada.
+    string archivoEntrada = "dataset_Encriptado0.txt";
+
+    // Lectura del texto base desde archivo.
+    ifstream fin(archivoEntrada.c_str());
     if (!fin) {
-        cout << "No se pudo abrir input.txt\n";
+        cout << "No se pudo abrir " << archivoEntrada << "\n";
         return;
     }
 
